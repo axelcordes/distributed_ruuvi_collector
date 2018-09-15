@@ -8,8 +8,7 @@
 #		no options: full information output
 #		-r		  : less information output
 #       -m        : send data to MQTT Broker (Node ID, Beacon MAC, RSSI, TIMESTAMP, PALOAD
-#       -v        : show whole BT telegram
-#       -p        : payload output
+
 
 
 #

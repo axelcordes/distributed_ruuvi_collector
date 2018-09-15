@@ -1,3 +1,8 @@
+#
+# from: https://github.com/pycom/pycom-libraries/blob/master/examples/mqtt/mqtt.py
+#
+
+
 import usocket as socket
 import ustruct as struct
 from ubinascii import hexlify

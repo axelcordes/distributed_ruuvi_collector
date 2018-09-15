@@ -1,12 +1,21 @@
-# distributed_ruuvi_collector
-Distributed BLE scanner for collecting ruuvi beacon telegrams.
+# Distributed Ruuvi Collector
 
-## Detailled description 
-by end of week 37 2018.
+## System Description
+Aim of this project is to cover a bigger flat or house with scanning nodes (linux and PyCom WiPy 3 devices) which sends the recorded BLE  telegrams via MQTT to a broker (e. g. Raspberry Pi). Since the format of this MQTT messages looks like the regular "hcidump" raw data format the [RuuviCollector](https://github.com/Scrin/RuuviCollector) can be used out of the box (only two parameters in the configuration have to be changed) for storing the ruuvi telegrams into an [influxDB](https://github.com/influxdata/influxdb)  database. For Visualization of the data, [Grafana](https://grafana.com) can be used. 
 
-## Brief Description
-Purpose of the system is to cover a bigger flat or house with several scanning devices (linux or pycom microcontroller) which record BLE telegrams from ruuvi beacons and send this data to a central computer (in my case a raspi).  There a slightly modificated version of the Ruuvi collector (https://github.com/Scrin/RuuviCollector) in combination with InfluxDB and grafana should be used to store analyze and plot the data.
+The following pictures show the setup:
+[![System Architecture](system_architecture_ruuvi.png)]()
 
-For doing this, the idea is to change the imput source of the ruuvi collector from hcidump to mqtt. Al the scanner than sends the received data in the raw data format of hcidump. Thus, no further changed to the existing ruuvi collector should be necessary.
+[![Example](house_ruuvi.png)]()
 
-The present folder (linux and pycom) just storing beta source code. The idea of using the pycom board is, not only to receive BLE telegrams, filter for ruuvi manufacturer id and sending the telegrams via mqtt but also use the Pysense header board and sends the data from the sensors on it as an own telegram which looks like the ruuvi ble telegram style. Thus, the data could also be processed with the existing ruuvi collector (https://github.com/Scrin/RuuviCollector).
+## Installation
+1. Setup the nodes according the documentation in the dedicated folders. 
+
+2. See [Setting up Raspberry Pi 3 as a Ruuvi Gateway](https://blog.ruuvi.com/rpi-gateway-6e4a5b676510) for a detailed description how to setup [RuuviCollector](https://github.com/Scrin/RuuviCollector), [influxDB](https://github.com/influxdata/influxdb) and [Grafana](https://grafana.com).
+
+3. However, to configure the RuuviCollector, the follwing changes have to be made to the config file: "ruuvi-collector.properties"
+
+<pre><code>command.scan=</code></pre>
+<pre><code>command.dump=mosquitto_sub -h IP_OF_BROKER -t ruuvis</code></pre>
+
+
