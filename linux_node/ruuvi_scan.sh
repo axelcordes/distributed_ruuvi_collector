@@ -66,44 +66,17 @@ process_complete_packet() (
 	  RSSI=`echo $packet | sed 's/.*\(..\)/\1/' ` # last byte
 	  RSSI=`echo "ibase=16; $RSSI" | bc`
 	  RSSI=$[RSSI - 256]
-	  MAC1=`echo $packet | sed 's/^.\{24\}\(.\{2\}\).*$/\1/'`  
-	  MAC2=`echo $packet | sed 's/^.\{22\}\(.\{2\}\).*$/\1/'`
-	  MAC3=`echo $packet | sed 's/^.\{20\}\(.\{2\}\).*$/\1/'`
-	  MAC4=`echo $packet | sed 's/^.\{18\}\(.\{2\}\).*$/\1/'`
-	  MAC5=`echo $packet | sed 's/^.\{16\}\(.\{2\}\).*$/\1/'`
-	  MAC6=`echo $packet | sed 's/^.\{14\}\(.\{2\}\).*$/\1/'`
+	  MAC1=`echo $packet | sed 's/^.\{38\}\(.\{2\}\).*$/\1/'`  
+	  MAC2=`echo $packet | sed 's/^.\{35\}\(.\{2\}\).*$/\1/'`
+	  MAC3=`echo $packet | sed 's/^.\{32\}\(.\{2\}\).*$/\1/'`
+	  MAC4=`echo $packet | sed 's/^.\{29\}\(.\{2\}\).*$/\1/'`
+	  MAC5=`echo $packet | sed 's/^.\{26\}\(.\{2\}\).*$/\1/'`
+	  MAC6=`echo $packet | sed 's/^.\{23\}\(.\{2\}\).*$/\1/'`
 	  MAC="$MAC1:$MAC2:$MAC3:$MAC4:$MAC5:$MAC6"
 	  echo "$MAC $RSSI"
-	elif [[ $2 == "-v" ]]; then
-	  TIMESTAMP=$(date +"%s")
-	  RSSI=`echo $packet | sed 's/.*\(..\)/\1/' ` # last byte
-	  RSSI=`echo "ibase=16; $RSSI" | bc`
-	  RSSI=$[RSSI - 256]
-	  MAC1=`echo $packet | sed 's/^.\{24\}\(.\{2\}\).*$/\1/'`  
-	  MAC2=`echo $packet | sed 's/^.\{22\}\(.\{2\}\).*$/\1/'`
-	  MAC3=`echo $packet | sed 's/^.\{20\}\(.\{2\}\).*$/\1/'`
-	  MAC4=`echo $packet | sed 's/^.\{18\}\(.\{2\}\).*$/\1/'`
-	  MAC5=`echo $packet | sed 's/^.\{16\}\(.\{2\}\).*$/\1/'`
-	  MAC6=`echo $packet | sed 's/^.\{14\}\(.\{2\}\).*$/\1/'`
-	  MAC="$MAC1:$MAC2:$MAC3:$MAC4:$MAC5:$MAC6"
-	  PAYLOAD=${packet:32:-2}
-	  echo "NODE: $NODE TIME: $TIMESTAMP BEACON: $MAC RSSI: $RSSI "  
 	elif [[ $2 == "-m" ]]; then
-	  #mosquitto_pub -h $MQTT_BROKER -t $MQTT_CHANNEL -m "$packet"
-	  echo "$packet" #debug
-	elif [[ $2 == "-p" ]]; then
-	  RSSI=`echo $packet | sed 's/.*\(..\)/\1/' ` # last byte
-	  RSSI=`echo "ibase=16; $RSSI" | bc`
-	  RSSI=$[RSSI - 256]
-	  MAC1=`echo $packet | sed 's/^.\{24\}\(.\{2\}\).*$/\1/'`  
-	  MAC2=`echo $packet | sed 's/^.\{22\}\(.\{2\}\).*$/\1/'`
-	  MAC3=`echo $packet | sed 's/^.\{20\}\(.\{2\}\).*$/\1/'`
-	  MAC4=`echo $packet | sed 's/^.\{18\}\(.\{2\}\).*$/\1/'`
-	  MAC5=`echo $packet | sed 's/^.\{16\}\(.\{2\}\).*$/\1/'`
-	  MAC6=`echo $packet | sed 's/^.\{14\}\(.\{2\}\).*$/\1/'`
-	  MAC="$MAC1:$MAC2:$MAC3:$MAC4:$MAC5:$MAC6"
-	  PAYLOAD=${packet:32:-2}
-	  echo "$MAC $RSSI $PAYLOAD" 
+	  mosquitto_pub -h $MQTT_BROKER -t $MQTT_CHANNEL -m "$packet"
+	  echo "$packet" #debug 
   fi
     #fi
   fi
