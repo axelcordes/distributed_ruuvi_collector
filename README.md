@@ -10,10 +10,10 @@ The following pictures show the setup:
 
 ## Installation
 1. Setup the nodes according the documentation in the dedicated folders. 
-
-2. See [Setting up Raspberry Pi 3 as a Ruuvi Gateway](https://blog.ruuvi.com/rpi-gateway-6e4a5b676510) for a detailed description how to setup [RuuviCollector](https://github.com/Scrin/RuuviCollector), [influxDB](https://github.com/influxdata/influxdb) and [Grafana](https://grafana.com).
-
-3. However, to configure the RuuviCollector, the following changes have to be made to the config file: "ruuvi-collector.properties"
+2. Install MQTT Publisher on the device which should executes the RuuviCollector:
+ <pre><code>sudo apt-get install mosquitto-clients=</code></pre>
+3. See [Setting up Raspberry Pi 3 as a Ruuvi Gateway](https://blog.ruuvi.com/rpi-gateway-6e4a5b676510) for a detailed description how to setup [RuuviCollector](https://github.com/Scrin/RuuviCollector), [influxDB](https://github.com/influxdata/influxdb) and [Grafana](https://grafana.com).
+4. However, to configure the RuuviCollector, the following changes have to be made to the config file: "ruuvi-collector.properties"
 
 <pre><code>command.scan=</code></pre>
 <pre><code>command.dump=mosquitto_sub -h IP_OF_BROKER -t ruuvis</code></pre>

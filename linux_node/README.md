@@ -5,7 +5,7 @@ I recommend not to use a Pi Zero in BLE crowdy conditions. I had several "segfau
 ## Requirements
 For Raspberry Pi
 <pre><code>sudo apt-get install bc mosquitto-clients bluez-hcidump sed</code></pre>
-Edit the script and change mqqt broker information according your network setup.
+Edit the script and change mqtt broker information according your network setup.
 
 ## Operation
 <pre>./ruuvi_scan.sh [Parameter]<code>
