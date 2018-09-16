@@ -11,6 +11,7 @@ from mqtt import MQTTClient
 import machine
 import time
 from ubinascii import hexlify
+from machine import WDT
 
 
 ## Defines
@@ -21,11 +22,13 @@ wlan_pw = "PW"
 mqtt_server = "192.168.30.58"
 mqtt_station_id = "RN-Keller"
 mqtt_topic = "ruuvis"
-ble_scantime = 30
+ble_scantime = 20 ## one cycle = ble_scantime + loop_time
+loop_time = 10 ## time in seconds between BLE scans
+wdt_timer = 25000 # 25000 = 25 seconds has to be greater than ble_scantime
 ble_pdu_header = "04 3E 21 02 01 03 01" ## for ruuvi
 ble_manufacturer_id = '9904' ## for ruuvi
 #ble_whitelist = (b'aa:bb:cc:dd:ee:21', b'aa:bb:cc:dd:ee:42',)
-loop_time = 30 ## time in seconds between BLE scans
+
 def settimeout(duration):
     pass
 def hexlifyNone( object ):
@@ -36,7 +39,7 @@ def hexlifyNone( object ):
 #
 #
 pycom.heartbeat(False) ## disable heartbeat LED
-
+wdt = WDT(timeout=wdt_timer) ## activate watchdog
 
 ## WLAN_Setup: Connect to IoT wlan
 #
@@ -133,8 +136,10 @@ def process_mqtt(beaconlist, publish_topic):
 # @Brief Mainloop
 #
 while True:
+    wdt.feed() ## reset watchdog timer
     beacons = ble_scan(ble_scantime)
     time.sleep(1)
+    wdt.feed() ## reset watchdog timer
     process_mqtt(beacons, mqtt_topic)
     time.sleep(1)
     pycom.rgbled(0x050000)  ## Red
