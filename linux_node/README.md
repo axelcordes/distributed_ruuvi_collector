@@ -7,7 +7,7 @@ For Raspberry Pi
 <pre><code>sudo apt-get install bc mosquitto-clients bluez-hcidump sed</code></pre>
 Edit the script and change mqtt broker information according your network setup.
 
-## Operation
+## Operation - Manual start
 <pre>./ruuvi_scan.sh [Parameter]<code>
 </code></pre>
 Parameters
@@ -26,5 +26,12 @@ Parameters
   </tr>
 </table>
 For Operation as Node:
-<pre>./ruuvi_scan.sh -m<code>
+<pre><code>./ruuvi_scan.sh -m
 </code></pre>
+
+## Operation - Crontab
+To ensure that the system is running properly even if the scan script maybe crashes it is possible to start it via crontab (maybe every hour). Thus, lack of data is one hour max.
+Following entry in `/etc/crontab` (without line break):
+<pre><code>10 *    * * *   pi      /home/pi/distributed_ruuvi_collector/linux_node/crontab_ruuvi_scan.sh
+</code></pre>
+starts the `ruuvi_scan.sh` script every hour (+ 10 minutes) with the option "-m".

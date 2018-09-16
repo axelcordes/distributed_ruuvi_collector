@@ -31,14 +31,10 @@ MQTT_CHANNEL=ruuvis
 #
 
 
-# Get rid of stack size limit
-#echo "Stack size before start: `ulimit -s`"
-#ulimit -s unlimited
-#echo "Stack size run mode: `ulimit -s`"
-
 #
 # MAIN
 #
+
 # Get MAC of BT Scanner
 NODE=`hciconfig $SCAN_DEVICE | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}' `
 
