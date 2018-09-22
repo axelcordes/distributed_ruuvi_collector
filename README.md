@@ -20,7 +20,6 @@ The following pictures show the setup:
 
 ## Outlook
 This project is not finished, next steps are:
-1. As shown in the pictures above a connector for netatmo data has to be developed. Here, I want to add extra code to a copy of the project [netatmo-display](https://github.com/bkoopman/netatmo-display) to reformat the data so that it looks like the raw data telegram of a ruuvi beacon and send everything to the existing setup via MQTT. 
-2. Use the sensors of the PySense Board and send MQTT messages in the same way as for the netatmo data in 1. Thus, the sensor data has to be reformatted into the ruvvi raw data BLE advertising telegram format. 
-3. Modify the Ruuvi firmware to only transmit telegrams every 10 seconds instead of every second. This should enable longer battery lifetime of the beacons.
+1. Use the sensors of the PySense Board and send MQTT messages in the same way as for the ruuvi data. Thus, the sensor data has to be reformatted into the ruvvi raw data BLE advertising telegram format. 
+2. Modify the Ruuvi firmware to only transmit telegrams every 10 seconds instead of every second. This should enable longer battery lifetime of the beacons.
 
